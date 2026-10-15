@@ -1,5 +1,5 @@
 // ============================================================
-//  BL@CKN1TE-NXS — Bot Configuration
+//  𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘-𝗡𝗫𝗦 𝗨𝗟𝗧𝗥𝗔 — Bot Configuration
 //  Author: BL@CKN1TE — The Incisive Tri-Hat Hacker
 //  Version: V16 ULTRA
 //  Channel: https://whatsapp.com/channel/0029VbDubJNHbFV50Y6oiO3f
@@ -9,33 +9,34 @@ const settings = {
     // ─────────────────────────────────────────────
     // 🎩 BOT IDENTITY
     // ─────────────────────────────────────────────
-    packname: '𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘-𝗡𝗫𝗦',
+    packname: process.env.BOT_NAME || '𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘-𝗡𝗫𝗦',
     author: '𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘 • Tri-Hat Hacker',
-    botName: '𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘-𝗡𝗫𝗦 𝗨𝗟𝗧𝗥𝗔',
-    botOwner: '𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘',        // Owner display name
-    ownerName: '𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘 𝗧𝗛𝗘 𝗜𝗡𝗖𝗜𝗦𝗜𝗩𝗘 𝗧𝗥𝗜-𝗛𝗔𝗧 𝗛𝗔𝗖𝗞𝗘𝗥',
+    botName: process.env.BOT_NAME || '𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘-𝗡𝗫𝗦 𝗨𝗟𝗧𝗥𝗔',
+    botOwner: process.env.BOT_OWNER || '𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘',
+    ownerName: process.env.BOT_OWNER 
+        ? `${process.env.BOT_OWNER} THE INCISIVE TRI-HAT HACKER`
+        : '𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘 𝗧𝗛𝗘 𝗜𝗡𝗖𝗜𝗦𝗜𝗩𝗘 𝗧𝗥𝗜-𝗛𝗔𝗧 𝗛𝗔𝗖𝗞𝗘𝗥',
 
     // ─────────────────────────────────────────────
-    // 📞 OWNER NUMBERS (no +, no spaces)
-    //    Multiple numbers separated by comma
+    // 📞 OWNER NUMBERS (comma-separated, no spaces, no +)
     // ─────────────────────────────────────────────
-    ownerNumber: '263714799483,263780540231',
+    ownerNumber: process.env.OWNER_NUMBER || '263714799483,263780540231',
 
     // ─────────────────────────────────────────────
     // 🔗 OFFICIAL LINKS
     // ─────────────────────────────────────────────
-    channelLink: 'https://whatsapp.com/channel/0029VbDubJNHbFV50Y6oiO3f',
-    supportGroup: 'https://chat.whatsapp.com/', // add your group link here if you have one
-    website: 'http://145.239.65.118:20378',      // your live panel URL
-    updateZipUrl: '',                            // optional — set your repo zip if you want auto-update
+    channelLink: process.env.CHANNEL_LINK || 'https://whatsapp.com/channel/0029VbDubJNHbFV50Y6oiO3f',
+    supportGroup: '',
+    website: process.env.WEBSITE || 'http://145.239.65.118:20378',
+    updateZipUrl: '',
 
     // ─────────────────────────────────────────────
     // 🎛️ BOT BEHAVIOUR
     // ─────────────────────────────────────────────
-    commandMode: 'public',       // 'public' | 'private'
-    prefix: '.',                 // default prefix (also supports / and >)
-    maxStoreMessages: 20,        // antidelete cache depth
-    storeWriteInterval: 10000,   // ms — how often to flush antidelete store
+    commandMode: 'public',
+    prefix: '.',
+    maxStoreMessages: 20,
+    storeWriteInterval: 10000,
 
     // ─────────────────────────────────────────────
     // 🌐 API KEYS
@@ -45,13 +46,13 @@ const settings = {
     // ─────────────────────────────────────────────
     // 📝 METADATA
     // ─────────────────────────────────────────────
-    description: 'BL@CKN1TE-NXS ULTRA — Cyberpunk WhatsApp Bot by the Incisive Tri-Hat Hacker. Infinite lifetime connection, 125+ commands, AI engine, anti-* protocols, and PROMAX speed.',
+    description: 'BL@CKN1TE-NXS ULTRA — Cyberpunk WhatsApp Bot by the Incisive Tri-Hat Hacker.',
     version: 'V16 ULTRA',
 
     // ─────────────────────────────────────────────
     // 🎨 BRANDING
     // ─────────────────────────────────────────────
-    logo: 'https://i.ibb.co/hRbc4JJ8/logo.jpg',
+    logo: process.env.LOGO_URL || 'https://i.ibb.co/hRbc4JJ8/logo.jpg',
     themeColor: '#00ff9d',
     mode: 'INFINITE',
     speed: 'PROMAX'
