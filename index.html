@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BL@CKN1TE-NXS | Control Panel</title>
-    <link rel="icon" type="image/png" href="https://i.ibb.co/hRbc4JJ8/logo.jpg">
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/hRbc4JJ8/logo.jpg">
     <meta name="theme-color" content="#05070d">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- ============================================================ -->
-    <!-- AUTH GUARD                                                   -->
-    <!-- ============================================================ -->
     <script>
         (function () {
             try {
@@ -78,7 +75,6 @@
             0% { background-position: 0 0; }
             100% { background-position: 45px 45px; }
         }
-
         .bg-glow {
             position: fixed; inset: 0;
             background:
@@ -97,15 +93,17 @@
         }
         .nav-inner {
             max-width: 1200px; margin: 0 auto;
-            padding: 14px 20px;
+            padding: 12px 20px;
             display: flex; align-items: center; justify-content: space-between;
+            gap: 12px;
         }
-        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
         .menu-toggle {
             color: var(--primary); font-size: 1.4rem;
-            cursor: pointer; margin-right: 6px;
+            cursor: pointer; margin-right: 4px;
             padding: 6px 10px; border-radius: 8px;
             transition: 0.25s; user-select: none;
+            flex-shrink: 0;
         }
         .menu-toggle:hover { transform: scale(1.15); color: #fff; background: rgba(0, 255, 157, 0.1); }
         .brand-icon {
@@ -113,9 +111,11 @@
             border-radius: 12px; overflow: hidden;
             border: 1px solid var(--border);
             box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+            flex-shrink: 0;
+            position: relative;
         }
         .brand-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+        .brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
         .brand-main {
             font-family: 'Orbitron', sans-serif;
             font-weight: 900; font-size: 1.05rem;
@@ -124,6 +124,9 @@
             -webkit-background-clip: text; background-clip: text;
             color: transparent;
             animation: shine 4s linear infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         @keyframes shine {
             0% { background-position: 0% center; }
@@ -131,28 +134,59 @@
         }
         .brand-sub { font-size: 0.62rem; color: var(--muted); letter-spacing: 3px; }
 
-        .nav-status { display: flex; align-items: center; gap: 8px; font-size: 0.68rem; color: var(--primary); letter-spacing: 2px; }
+        /* HEADER STATUS CHIP */
+        .nav-status {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.68rem; color: var(--primary);
+            letter-spacing: 2px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: rgba(0, 255, 157, 0.06);
+            border: 1px solid rgba(0, 255, 157, 0.25);
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+        .nav-status.online {
+            background: rgba(0, 255, 157, 0.12);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+        .nav-status.offline {
+            background: rgba(255, 59, 92, 0.1);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+        .nav-status.warn {
+            background: rgba(255, 176, 32, 0.1);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
         .pulse-dot {
             width: 8px; height: 8px; border-radius: 50%;
             background: var(--primary);
             box-shadow: 0 0 10px var(--primary);
             animation: pulse 1.6s ease-in-out infinite;
+            flex-shrink: 0;
         }
+        .nav-status.offline .pulse-dot { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
+        .nav-status.warn .pulse-dot { background: var(--warning); box-shadow: 0 0 10px var(--warning); }
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.4; transform: scale(0.7); }
         }
 
-        .container { max-width: 900px; margin: 0 auto; padding: 26px 20px 60px; position: relative; z-index: 5; }
+        .container { max-width: 900px; margin: 0 auto; padding: 22px 16px 60px; position: relative; z-index: 5; }
 
         /* STATS */
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 22px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
         .stat-card {
             background: rgba(15, 20, 32, 0.75);
             backdrop-filter: blur(12px);
             border: 1px solid var(--border);
-            border-radius: 14px; padding: 18px;
-            display: flex; align-items: center; gap: 14px;
+            border-radius: 14px; padding: 16px;
+            display: flex; align-items: center; gap: 12px;
             position: relative; overflow: hidden;
         }
         .stat-card::before {
@@ -161,14 +195,15 @@
             background: linear-gradient(180deg, var(--primary), var(--accent));
         }
         .stat-icon {
-            width: 46px; height: 46px; border-radius: 12px;
+            width: 42px; height: 42px; border-radius: 12px;
             background: rgba(0, 255, 157, 0.08);
             border: 1px solid var(--border);
             display: grid; place-items: center;
-            font-size: 20px; color: var(--primary);
+            font-size: 18px; color: var(--primary);
+            flex-shrink: 0;
         }
-        .stat-info h3 { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; }
-        .stat-info p { font-size: 0.6rem; color: var(--muted); letter-spacing: 2px; margin-top: 2px; }
+        .stat-info h3 { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; }
+        .stat-info p { font-size: 0.58rem; color: var(--muted); letter-spacing: 2px; margin-top: 2px; }
         .live-dot {
             position: absolute; top: 10px; right: 10px;
             width: 10px; height: 10px; border-radius: 50%;
@@ -183,13 +218,14 @@
         }
 
         /* ═══════════════════════════════════════════════════════ */
-        /* ACTIVE BOT PANEL — now clickable + long-pressable       */
+        /* ACTIVE BOT PANEL with LOGO + SPINNING RINGS              */
         /* ═══════════════════════════════════════════════════════ */
         .bot-name-panel {
-            margin-bottom: 20px; padding: 20px; text-align: center;
-            background: rgba(0, 255, 157, 0.05);
+            margin-bottom: 18px;
+            padding: 24px 20px 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.05), rgba(124, 58, 237, 0.04));
             border: 1px solid rgba(0, 255, 157, 0.3);
-            border-radius: 14px;
+            border-radius: 20px;
             cursor: pointer;
             transition: 0.25s;
             position: relative;
@@ -197,49 +233,183 @@
             user-select: none;
             -webkit-user-select: none;
             -webkit-tap-highlight-color: transparent;
+            text-align: center;
         }
         .bot-name-panel:hover {
-            background: rgba(0, 255, 157, 0.08);
             border-color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 255, 157, 0.25);
+            box-shadow: 0 12px 40px rgba(0, 255, 157, 0.2);
         }
         .bot-name-panel.pressing {
             border-color: var(--warning) !important;
-            background: rgba(255, 176, 32, 0.08) !important;
+            background: rgba(255, 176, 32, 0.06) !important;
             transform: scale(0.99);
         }
-        .bot-name-panel.has-bot {
-            background: rgba(0, 255, 157, 0.08);
-            border-color: var(--primary);
+        .bot-name-panel.has-bot { border-color: var(--primary); }
+
+        .bot-logo-wrap {
+            position: relative;
+            width: 110px; height: 110px;
+            margin: 0 auto 16px;
+            display: grid; place-items: center;
         }
-        .bot-name-panel h4 { color: var(--primary); font-size: 0.72rem; letter-spacing: 3px; margin-bottom: 8px; }
-        .bot-name-panel p { color: #fff; font-family: 'Orbitron', sans-serif; font-size: 1.3rem; font-weight: 900; word-break: break-all; }
+        .bot-logo-ring-1 {
+            position: absolute; inset: -12px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--primary);
+            border-right-color: var(--accent-2);
+            animation: spinRing 3s linear infinite;
+        }
+        .bot-logo-ring-2 {
+            position: absolute; inset: -22px;
+            border-radius: 50%;
+            border: 1px dashed transparent;
+            border-bottom-color: var(--accent);
+            border-left-color: var(--primary);
+            animation: spinRing 5s linear infinite reverse;
+        }
+        .bot-logo-ring-3 {
+            position: absolute; inset: -32px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            border-top-color: rgba(124, 58, 237, 0.5);
+            border-bottom-color: rgba(6, 182, 212, 0.5);
+            animation: spinRing 7s linear infinite;
+        }
+        @keyframes spinRing { to { transform: rotate(360deg); } }
+        .bot-logo {
+            width: 90px; height: 90px;
+            border-radius: 22px;
+            object-fit: cover;
+            border: 2px solid rgba(0, 255, 157, 0.5);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
+            position: relative;
+            z-index: 2;
+            animation: logoPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 255, 157, 0.5); }
+            50% { transform: scale(1.04); box-shadow: 0 0 45px rgba(0, 255, 157, 0.8); }
+        }
+
+        .bot-name-panel h4 {
+            color: var(--primary);
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+        .bot-name-display {
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 900;
+            word-break: break-all;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+            margin-bottom: 12px;
+            min-height: 1.6em;
+        }
+
         .bot-panel-hint {
             font-size: 0.62rem; color: var(--muted); letter-spacing: 1.5px;
-            margin-top: 10px; display: flex; justify-content: center; gap: 14px;
+            margin-bottom: 14px; display: flex; justify-content: center; gap: 14px;
             flex-wrap: wrap;
         }
         .bot-panel-hint span { display: inline-flex; align-items: center; gap: 5px; }
         .bot-panel-hint i { color: var(--accent-2); font-size: 0.68rem; }
 
         /* ═══════════════════════════════════════════════════════ */
-        /* FOOTER MONITOR — live socket status under brand         */
+        /* START / STOP BUTTONS                                     */
+        /* ═══════════════════════════════════════════════════════ */
+        .bot-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .bot-ctrl-btn {
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: 0.25s;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+        .bot-ctrl-btn i { font-size: 0.9rem; }
+        .bot-ctrl-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            filter: grayscale(0.7);
+        }
+        .bot-ctrl-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+        }
+        .start-btn {
+            background: linear-gradient(135deg, #00ff9d, #00cc7a);
+            color: #05070d;
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.4);
+        }
+        .start-btn:not(:disabled):hover {
+            box-shadow: 0 0 35px rgba(0, 255, 157, 0.7);
+        }
+        .start-btn.active {
+            background: linear-gradient(135deg, #00cc7a, #00a862);
+            animation: startPulse 2s ease-in-out infinite;
+        }
+        @keyframes startPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 157, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 157, 0.8); }
+        }
+        .stop-btn {
+            background: linear-gradient(135deg, #ff3b5c, #c81e3f);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 59, 92, 0.4);
+        }
+        .stop-btn:not(:disabled):hover {
+            box-shadow: 0 0 35px rgba(255, 59, 92, 0.7);
+        }
+
+        /* ═══════════════════════════════════════════════════════ */
+        /* CONNECTION FOOTER MONITOR                                */
         /* ═══════════════════════════════════════════════════════ */
         .socket-monitor {
-            margin-top: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             flex-wrap: wrap;
-            padding: 10px 14px;
-            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 14px;
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border);
             border-radius: 12px;
-            font-size: 0.68rem;
+            font-size: 0.66rem;
             font-family: 'JetBrains Mono', monospace;
             letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .socket-monitor.live {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 255, 157, 0.08), rgba(6, 182, 212, 0.05));
+            box-shadow: inset 0 0 30px rgba(0, 255, 157, 0.08);
+        }
+        .socket-monitor.warn {
+            border-color: var(--warning);
+            background: rgba(255, 176, 32, 0.06);
+        }
+        .socket-monitor.offline {
+            border-color: rgba(255, 59, 92, 0.4);
+            background: rgba(255, 59, 92, 0.04);
         }
         .socket-monitor-item {
             display: inline-flex;
@@ -252,19 +422,21 @@
             color: var(--primary);
             font-weight: 700;
             font-family: 'Orbitron', sans-serif;
+            font-size: 0.68rem;
         }
-        .socket-monitor-item .val.dim { color: var(--muted); font-weight: 400; font-family: inherit; }
+        .socket-monitor-item .val.dim { color: var(--muted); font-weight: 400; font-family: inherit; font-size: 0.66rem; }
         .socket-monitor-item .val.danger { color: var(--danger); }
         .socket-monitor-item .val.warn { color: var(--warning); }
         .socket-status-dot {
-            width: 8px; height: 8px; border-radius: 50%;
+            width: 9px; height: 9px; border-radius: 50%;
             background: var(--danger);
             box-shadow: 0 0 8px var(--danger);
             transition: 0.3s;
+            flex-shrink: 0;
         }
         .socket-status-dot.live {
             background: var(--primary);
-            box-shadow: 0 0 12px var(--primary);
+            box-shadow: 0 0 14px var(--primary);
             animation: pulse 1.4s ease-in-out infinite;
         }
         .socket-status-dot.warn {
@@ -274,18 +446,52 @@
         .socket-status-text {
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 0.66rem;
+            font-size: 0.68rem;
             letter-spacing: 1.5px;
         }
         .socket-status-text.live { color: var(--primary); }
         .socket-status-text.warn { color: var(--warning); }
         .socket-status-text.danger { color: var(--danger); }
 
+        .render-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(124, 58, 237, 0.12);
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            border-radius: 20px;
+            color: var(--accent);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-top: 10px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .render-badge i { font-size: 0.65rem; }
+
+        /* ===== TYPING ANIMATION ===== */
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            animation: typing 2.5s steps(30) 1s 1 normal both, blink 1s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* PANELS */
         .panel {
             background: rgba(15, 20, 32, 0.75);
             backdrop-filter: blur(12px);
             border: 1px solid var(--border);
-            border-radius: 16px; margin-bottom: 20px; overflow: hidden;
+            border-radius: 16px; margin-bottom: 18px; overflow: hidden;
         }
         .panel-header {
             padding: 14px 18px;
@@ -434,9 +640,6 @@
         .term-msg.info { color: var(--accent-2); }
         .term-cursor { display: inline-block; width: 8px; height: 14px; background: var(--primary); animation: termBlink 1s step-end infinite; vertical-align: middle; margin-left: 2px; }
         @keyframes termBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .term-boot-bar { margin: 8px 0; }
-        .term-boot-bar .label { color: var(--muted); margin-bottom: 4px; font-size: 0.68rem; }
-        .term-boot-bar .bar { color: var(--primary); letter-spacing: 1px; }
         .terminal-status-bar { background: rgba(0, 20, 10, 0.95);
             border-top: 1px solid rgba(0, 255, 157, 0.25);
             padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 16px;
@@ -483,7 +686,6 @@
         .drawer-item[data-action="about"] i { color: var(--accent-2); }
         .drawer-item[data-action="sessions"] i { color: var(--warning); }
         .drawer-item[data-action="contact"] i { color: #25D366; }
-        .drawer-item[data-action="logout"] i { color: var(--danger); }
 
         .drawer-footer {
             border-top: 1px solid #333;
@@ -508,7 +710,7 @@
         .drawer-overlay.open { display: block; }
 
         /* TOAST */
-        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 5000; display: flex; flex-direction: column; gap: 10px; }
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 5000; display: flex; flex-direction: column; gap: 10px; max-width: 90vw; }
         .toast {
             padding: 14px 20px; min-width: 260px;
             background: #05070d; border: 1px solid var(--primary);
@@ -522,10 +724,12 @@
         .toast.success { border-color: var(--primary); border-left-color: var(--primary); }
         .toast.error { border-color: var(--danger); border-left-color: var(--danger); }
         .toast.info { border-color: var(--accent-2); border-left-color: var(--accent-2); }
+        .toast.warning { border-color: var(--warning); border-left-color: var(--warning); }
         .toast i { font-size: 1.1rem; }
         .toast.success i { color: var(--primary); }
         .toast.error i { color: var(--danger); }
         .toast.info i { color: var(--accent-2); }
+        .toast.warning i { color: var(--warning); }
         .toast-close { margin-left: auto; cursor: pointer; color: #666; }
         .toast-close:hover { color: #fff; }
 
@@ -584,7 +788,7 @@
             100% { transform: translateX(250%); width: 40%; }
         }
 
-        /* SPINNING LOADER OVERLAY (for logout / generating) */
+        /* SPINNER OVERLAY */
         .spinner-overlay {
             position: fixed; inset: 0;
             background: rgba(5, 7, 13, 0.97);
@@ -606,12 +810,8 @@
             padding: 4px;
             background: rgba(0, 255, 157, 0.05);
             filter: drop-shadow(0 0 25px rgba(0, 255, 157, 0.7));
-            animation: logoPulse2 2s ease-in-out infinite;
+            animation: logoPulse 2s ease-in-out infinite;
             position: relative; z-index: 2;
-        }
-        @keyframes logoPulse2 {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.06); }
         }
         .spinner-ring {
             position: absolute; inset: -14px;
@@ -631,8 +831,6 @@
             animation: spinRing 2.4s linear infinite reverse;
             z-index: 0;
         }
-        @keyframes spinRing { to { transform: rotate(360deg); } }
-
         .spinner-text {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.2rem;
@@ -672,11 +870,7 @@
             border-radius: 4px;
             box-shadow: 0 0 20px rgba(0, 255, 157, 0.8);
             transition: width 0.25s ease;
-            animation: gradientShift 2s linear infinite;
-        }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+            animation: shine 2s linear infinite;
         }
 
         /* NEXUS MODAL */
@@ -697,16 +891,12 @@
         .nexus-modal-body h3 { color: var(--primary); font-family: 'Orbitron', sans-serif; font-size: 1.05rem; margin-bottom: 12px; letter-spacing: 2px; }
         .nexus-modal-body p { margin-bottom: 10px; }
 
-        /* Settings modal specific */
+        /* Settings modal */
         .setting-row { margin-bottom: 16px; }
         .setting-row label {
             display: flex; justify-content: space-between; align-items: center;
             color: #b8c5d6; font-size: 0.82rem;
             padding: 10px 0;
-        }
-        .setting-row .setting-desc {
-            display: block; color: var(--muted); font-size: 0.68rem;
-            margin-top: 2px;
         }
         .toggle-switch {
             position: relative; width: 44px; height: 24px;
@@ -772,7 +962,6 @@
         }
         .settings-btn.reset:hover { background: rgba(255, 59, 92, 0.3); }
 
-        /* Contact SVG icon */
         .svg-icon {
             width: 26px;
             height: 26px;
@@ -870,7 +1059,6 @@
         .sessions-action-btn:hover { background: rgba(255, 59, 92, 0.3); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 59, 92, 0.4); }
         .sessions-action-btn.primary-danger { background: linear-gradient(135deg, var(--danger), #c81e3f); color: #fff; border-color: transparent; }
         .sessions-action-btn.primary-danger:hover { box-shadow: 0 8px 30px rgba(255, 59, 92, 0.6); }
-        .sessions-action-btn i { font-size: 0.9rem; }
 
         /* CONFIRMATION MODAL */
         .confirm-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(10px); z-index: 4000; display: none; justify-content: center; align-items: center; padding: 20px; }
@@ -945,23 +1133,6 @@
         .confirm-btn.confirm { background: linear-gradient(135deg, var(--danger), #c81e3f); color: #fff; box-shadow: 0 0 20px rgba(255, 59, 92, 0.4); }
         .confirm-btn.confirm:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255, 59, 92, 0.6); }
 
-        /* Render anti-sleep banner */
-        .render-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 3px 10px;
-            background: rgba(124, 58, 237, 0.12);
-            border: 1px solid rgba(124, 58, 237, 0.4);
-            border-radius: 20px;
-            color: var(--accent);
-            font-size: 0.6rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            margin-top: 6px;
-        }
-        .render-badge i { font-size: 0.65rem; }
-
         @media (max-width: 640px) {
             .stats-grid { grid-template-columns: 1fr; }
             .input-row { flex-direction: column; }
@@ -974,6 +1145,7 @@
             .nexus-modal-box { max-width: 95vw; }
             .sessions-action-btn { min-width: 0; }
             .socket-monitor { font-size: 0.6rem; gap: 8px; }
+            .bot-name-display { font-size: 1.05rem; }
         }
     </style>
 </head>
@@ -1004,14 +1176,12 @@
             <span><i class="fas fa-terminal"></i> NEXUS MENU</span>
             <span class="close-btn" onclick="toggleDrawer()"><i class="fas fa-times"></i></span>
         </div>
-
         <div class="drawer-items">
             <div class="drawer-item" data-action="settings"><i class="fas fa-cog"></i><span>Settings</span></div>
             <div class="drawer-item" data-action="about"><i class="fas fa-info-circle"></i><span>About</span></div>
             <div class="drawer-item" data-action="sessions"><i class="fas fa-list"></i><span>Live Sessions</span></div>
             <div class="drawer-item" data-action="contact"><i class="fab fa-whatsapp"></i><span>Contact Owner</span></div>
         </div>
-
         <div class="drawer-footer">
             <button class="drawer-logout-btn" onclick="performLogout()">
                 <i class="fas fa-sign-out-alt"></i> LOGOUT
@@ -1032,9 +1202,9 @@
                     <span class="brand-sub">Control Panel</span>
                 </div>
             </div>
-            <div class="nav-status">
+            <div class="nav-status" id="navStatusChip">
                 <span class="pulse-dot"></span>
-                <span id="navStatusText">SYSTEM ONLINE</span>
+                <span id="navStatusText">SYSTEM BOOTING</span>
             </div>
         </div>
     </nav>
@@ -1060,19 +1230,38 @@
         </div>
 
         <!-- ═══════════════════════════════════════════════════════ -->
-        <!-- ACTIVE BOT — CLICKABLE + LONG-PRESSABLE + SOCKET MONITOR -->
+        <!-- ACTIVE BOT PANEL — LOGO + RINGS + START/STOP + MONITOR  -->
         <!-- ═══════════════════════════════════════════════════════ -->
-        <div class="bot-name-panel" id="botNamePanel" title="Click to view session · Long-press to terminate">
-            <h4>ACTIVE BOT NAME</h4>
-            <p id="currentBotNameDisplay">No Bot Selected</p>
+        <div class="bot-name-panel" id="botNamePanel">
+            <div class="bot-logo-wrap">
+                <div class="bot-logo-ring-3"></div>
+                <div class="bot-logo-ring-2"></div>
+                <div class="bot-logo-ring-1"></div>
+                <img class="bot-logo" src="https://i.ibb.co/hRbc4JJ8/logo.jpg" alt="Logo">
+            </div>
+
+            <h4>ACTIVE BOT</h4>
+            <div class="bot-name-display" id="currentBotNameDisplay">
+                <span class="typing-text">No Bot Selected</span>
+            </div>
 
             <div class="bot-panel-hint">
-                <span><i class="fas fa-hand-pointer"></i> Tap to open session</span>
+                <span><i class="fas fa-hand-pointer"></i> Tap for session view</span>
                 <span><i class="fas fa-bolt"></i> Long-press to terminate</span>
             </div>
 
-            <!-- FOOTER MONITOR — LIVE SOCKET STATUS -->
-            <div class="socket-monitor" id="socketMonitor">
+            <!-- START / STOP BUTTONS -->
+            <div class="bot-controls">
+                <button class="bot-ctrl-btn start-btn" id="startBtn">
+                    <i class="fas fa-play"></i> START
+                </button>
+                <button class="bot-ctrl-btn stop-btn" id="stopBtn" disabled>
+                    <i class="fas fa-stop"></i> STOP
+                </button>
+            </div>
+
+            <!-- CONNECTION FOOTER MONITOR -->
+            <div class="socket-monitor offline" id="socketMonitor">
                 <div class="socket-monitor-item">
                     <span class="socket-status-dot" id="socketDot"></span>
                     <span class="socket-status-text danger" id="socketStatusText">NOT CONNECTED</span>
@@ -1093,7 +1282,8 @@
                     <span class="val" id="monitorHeartbeatVal">--</span>
                 </div>
             </div>
-            <div style="text-align:center;">
+
+            <div>
                 <span class="render-badge">
                     <i class="fas fa-moon"></i> ANTI-SLEEP ARMED · RENDER LIVE
                 </span>
@@ -1185,7 +1375,6 @@
             </div>
         </div>
 
-        <!-- Magic WA Buttons -->
         <div class="magic-wa-container">
             <a href="https://wa.me/263780540231?text=Hello%20BL@CKN1TE!" target="_blank" class="magic-wa-btn">
                 <svg class="magic-wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -1269,19 +1458,17 @@
             let activeBotCount = 0;
             let activeSessionCount = 0;
             let cachedSessions = [];
-
-            // Heartbeat tracking
+            let botRunning = false;
+            let botConnected = false;
             let lastHeartbeatTime = 0;
-            let lastHeartbeatLabel = '--';
+            let apiOnline = false;
 
-            // Long-press state (sessions)
+            // Long-press
             let longPressTimer = null;
             let longPressTarget = null;
-            const LONG_PRESS_MS = 600;
-
-            // Long-press state (bot panel)
             let botPanelTimer = null;
             let botPanelFired = false;
+            const LONG_PRESS_MS = 600;
 
             // ========================================================
             // SETTINGS
@@ -1312,7 +1499,7 @@
             // TERMINAL
             // ========================================================
             const terminalBody = document.getElementById('terminalBody');
-            const MAX_TERM_LINES = 200;
+            const MAX_TERM_LINES = 250;
 
             function nowTime() { return new Date().toTimeString().slice(0, 8); }
 
@@ -1321,7 +1508,7 @@
                 const div = document.createElement('div');
                 div.className = 'term-line';
                 const pc = type === 'error' ? 'err' : type === 'warning' ? 'warn' : type === 'info' ? 'info' : '';
-                div.innerHTML = `<span class="term-time">[${nowTime()}]</span><span class="term-prefix ${pc}">${prefix}</span><span class="term-msg ${type}">${message}</span>`;
+                div.innerHTML = `<span class="term-time">[${nowTime()}]</span><span class="term-prefix ${pc}">${prefix}</span><span class="term-msg ${type}">${escapeHtml(message)}</span>`;
                 terminalBody.appendChild(div);
                 while (terminalBody.children.length > MAX_TERM_LINES) terminalBody.removeChild(terminalBody.firstChild);
                 terminalBody.scrollTop = terminalBody.scrollHeight;
@@ -1362,8 +1549,6 @@
                 if (terminalBooted) return;
                 terminalBooted = true;
                 termTyping('Initializing NEXUS core...', 'info', '◆', 15);
-                await sleep(400);
-                termTyping('Loading settings...', 'info', '◆', 15);
                 await sleep(300);
                 termTyping('Establishing permanent socket link...', 'info', '◆', 15);
                 await sleep(300);
@@ -1377,18 +1562,25 @@
             function showToast(message, type = 'info', duration = 4000) {
                 const c = document.getElementById('toastContainer');
                 if (!c) return;
-                const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle' };
+                const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle', warning: 'fa-exclamation-triangle' };
                 const t = document.createElement('div');
                 t.className = 'toast ' + type;
-                t.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i><span>${message}</span><span class="toast-close"><i class="fas fa-times"></i></span>`;
+                t.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i><span>${escapeHtml(message)}</span><span class="toast-close"><i class="fas fa-times"></i></span>`;
                 c.appendChild(t);
                 t.querySelector('.toast-close').addEventListener('click', () => t.remove());
                 setTimeout(() => { if (t.parentNode) { t.style.opacity = '0'; t.style.transform = 'translateX(100%)'; setTimeout(() => t.remove(), 300); } }, duration);
             }
             window.showToast = showToast;
 
+            function escapeHtml(str) {
+                return String(str ?? '').replace(/[&<>"']/g, s => ({
+                    '&': '&amp;', '<': '&lt;', '>': '&gt;',
+                    '"': '&quot;', "'": '&#39;'
+                })[s]);
+            }
+
             // ========================================================
-            // SOCKET MONITOR — footer under the bot name panel
+            // SOCKET MONITOR — footer under bot panel
             // ========================================================
             function updateSocketMonitor() {
                 const dot = document.getElementById('socketDot');
@@ -1396,22 +1588,31 @@
                 const socketVal = document.getElementById('monitorSocketVal');
                 const pingVal = document.getElementById('monitorPingVal');
                 const heartbeatVal = document.getElementById('monitorHeartbeatVal');
+                const monitor = document.getElementById('socketMonitor');
 
-                // Determine overall status
                 let state = 'danger';
                 let label = 'NOT CONNECTED';
 
-                if (socketConnected && activeSessionCount > 0) {
+                if (botRunning && botConnected) {
                     state = 'live';
                     label = 'LINKED · PERMANENT';
+                } else if (botConnected) {
+                    state = 'warn';
+                    label = 'LINKED · STOPPED';
+                } else if (botRunning) {
+                    state = 'warn';
+                    label = 'STARTING...';
                 } else if (socketConnected) {
                     state = 'warn';
-                    label = 'CONNECTED · WAITING';
-                } else if (Date.now() - lastPollSuccess < 30000) {
-                    state = 'warn';
-                    label = 'RECONNECTING...';
+                    label = 'STANDBY';
                 }
 
+                if (monitor) {
+                    monitor.classList.remove('live', 'warn', 'offline');
+                    if (state === 'live') monitor.classList.add('live');
+                    else if (state === 'warn') monitor.classList.add('warn');
+                    else monitor.classList.add('offline');
+                }
                 if (dot) {
                     dot.classList.remove('live', 'warn');
                     if (state === 'live') dot.classList.add('live');
@@ -1454,13 +1655,139 @@
             setInterval(updateSocketMonitor, 1000);
 
             // ========================================================
+            // START / STOP BUTTONS
+            // ========================================================
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+
+            function updateBotButtons() {
+                if (startBtn) {
+                    startBtn.disabled = !currentBotName || botRunning;
+                    startBtn.classList.toggle('active', botRunning);
+                    startBtn.innerHTML = botRunning
+                        ? '<i class="fas fa-circle-check"></i> RUNNING'
+                        : '<i class="fas fa-play"></i> START';
+                }
+                if (stopBtn) {
+                    stopBtn.disabled = !currentBotName || !botRunning;
+                }
+            }
+
+            startBtn?.addEventListener('click', () => {
+                if (!currentBotName) {
+                    showToast('Select a bot first', 'warning');
+                    return;
+                }
+                if (botRunning) {
+                    showToast('Bot already running', 'info');
+                    return;
+                }
+
+                showSpinner('STARTING BOT', [
+                    { at: 0,   label: 'BOOTING',     msg: 'Initializing WhatsApp socket...' },
+                    { at: 25,  label: 'CONNECTING',  msg: 'Opening WhatsApp packets...' },
+                    { at: 60,  label: 'LINKING',     msg: 'Establishing session link...' },
+                    { at: 85,  label: 'READY',       msg: 'Sending connection banner...' },
+                    { at: 100, label: 'DONE',        msg: 'Bot is now ONLINE ✅' }
+                ]);
+
+                botRunning = true;
+                updateBotButtons();
+                updateSocketMonitor();
+                updateNavStatus();
+
+                termTyping(`🚀 Starting bot "${currentBotName}"...`, 'info', '◆', 12);
+
+                if (socket && socket.emit) {
+                    socket.emit('start-session', {
+                        userId: currentBotName,
+                        botName: settings.botName || 'BL@CKN1TE-NXS'
+                    });
+                }
+
+                setTimeout(() => {
+                    hideSpinner();
+                    showToast(`Bot "${currentBotName}" is now running 🎩`, 'success', 5000);
+                    termTyping(`✅ ${currentBotName} ONLINE — banner delivered`, 'success', '✓', 12);
+                }, 5200);
+            });
+
+            stopBtn?.addEventListener('click', () => {
+                if (!currentBotName) return;
+                if (!botRunning) return;
+
+                openConfirm({
+                    title: 'STOP BOT',
+                    bodyHtml: `
+                        <p>Stop the current bot session?</p>
+                        <div class="session-highlight"><i class="fas fa-robot"></i> ${escapeHtml(currentBotName)}</div>
+                        <span class="confirm-warn-text">
+                            <i class="fas fa-info-circle"></i>
+                            The WhatsApp link stays connected — the bot will just stop processing commands until you press START again.
+                        </span>
+                    `,
+                    confirmText: 'STOP BOT',
+                    onConfirm: () => {
+                        botRunning = false;
+                        updateBotButtons();
+                        updateSocketMonitor();
+                        updateNavStatus();
+
+                        showSpinner('STOPPING BOT', [
+                            { at: 0,   label: 'PAUSING',  msg: 'Suspending message handler...' },
+                            { at: 50,  label: 'IDLE',     msg: 'Bot paused.' },
+                            { at: 100, label: 'DONE',     msg: 'Bot is now stopped.' }
+                        ]);
+
+                        if (socket && socket.emit) {
+                            socket.emit('stop-session', { userId: currentBotName });
+                        }
+                        termTyping(`🔴 Stopped bot "${currentBotName}"`, 'warning', '⚠', 12);
+
+                        setTimeout(() => {
+                            hideSpinner();
+                            showToast('Bot stopped. Press START to resume.', 'warning', 5000);
+                        }, 5200);
+                    }
+                });
+            });
+
+            // ========================================================
+            // NAV STATUS
+            // ========================================================
+            function updateNavStatus() {
+                const chip = document.getElementById('navStatusChip');
+                const txt = document.getElementById('navStatusText');
+                if (!chip || !txt) return;
+
+                chip.classList.remove('online', 'offline', 'warn');
+
+                if (socketConnected && botRunning && botConnected) {
+                    chip.classList.add('online');
+                    txt.innerText = 'BOT ONLINE';
+                } else if (socketConnected && botRunning) {
+                    chip.classList.add('warn');
+                    txt.innerText = 'BOT STARTING';
+                } else if (socketConnected) {
+                    chip.classList.add('warn');
+                    txt.innerText = 'STANDBY';
+                } else if (apiOnline) {
+                    chip.classList.add('warn');
+                    txt.innerText = 'SYNCING';
+                } else {
+                    chip.classList.add('offline');
+                    txt.innerText = 'OFFLINE';
+                }
+            }
+
+            // ========================================================
             // CONFIRMATION MODAL
             // ========================================================
             let confirmCallback = null;
             function openConfirm({ title, bodyHtml, confirmText, onConfirm }) {
                 document.getElementById('confirmTitle').innerText = title || 'CONFIRM ACTION';
                 document.getElementById('confirmBody').innerHTML = bodyHtml || '';
-                document.getElementById('confirmOkBtn').innerHTML = `<i class="fas fa-power-off"></i> ${confirmText || 'TERMINATE'}`;
+                document.getElementById('confirmOkBtn').innerHTML = `<i class="fas fa-power-off"></i> ${confirmText || 'CONFIRM'}`;
                 confirmCallback = onConfirm || null;
                 document.getElementById('confirmModal').classList.add('open');
             }
@@ -1470,13 +1797,11 @@
             }
             window.closeConfirm = closeConfirm;
 
-            document.addEventListener('DOMContentLoaded', () => {
-                document.getElementById('confirmCancelBtn')?.addEventListener('click', closeConfirm);
-                document.getElementById('confirmOkBtn')?.addEventListener('click', () => {
-                    const cb = confirmCallback;
-                    closeConfirm();
-                    if (typeof cb === 'function') cb();
-                });
+            document.getElementById('confirmCancelBtn')?.addEventListener('click', closeConfirm);
+            document.getElementById('confirmOkBtn')?.addEventListener('click', () => {
+                const cb = confirmCallback;
+                closeConfirm();
+                if (typeof cb === 'function') cb();
             });
 
             // ========================================================
@@ -1487,9 +1812,9 @@
                 const sessionsOnline = activeSessionCount > 0;
                 const upOnline = lastPollSuccess > 0;
 
-                document.getElementById('statDotActive').classList.toggle('online', activeOnline);
-                document.getElementById('statDotSessions').classList.toggle('online', sessionsOnline);
-                document.getElementById('statDotUptime').classList.toggle('online', upOnline);
+                document.getElementById('statDotActive')?.classList.toggle('online', activeOnline);
+                document.getElementById('statDotSessions')?.classList.toggle('online', sessionsOnline);
+                document.getElementById('statDotUptime')?.classList.toggle('online', upOnline);
             }
 
             function updateTerminalStatusBar(key, value) {
@@ -1509,7 +1834,7 @@
             }
 
             // ========================================================
-            // SOCKET — Permanent infinite reconnect
+            // SOCKET
             // ========================================================
             try {
                 socket = io({
@@ -1527,9 +1852,8 @@
                     socketConnected = true;
                     updateTerminalStatusBar('socket', 'ONLINE');
                     updateSocketMonitor();
+                    updateNavStatus();
                     termTyping('✅ Permanent socket LINKED.', 'success', '✓', 12);
-                    termLine('Render anti-sleep: ACTIVE (4min ping)', 'info', '🛡️');
-                    showToast('Permanent socket linked ♾️', 'info', 2500);
                     pollHealth();
                 });
 
@@ -1537,6 +1861,7 @@
                     socketConnected = false;
                     updateTerminalStatusBar('socket', 'OFFLINE');
                     updateSocketMonitor();
+                    updateNavStatus();
                     termTyping(`⚠️ Socket dropped (${reason}). Auto-reconnecting...`, 'warning', '⚠', 10);
                 });
 
@@ -1548,6 +1873,7 @@
                     socketConnected = true;
                     termTyping(`✅ Reconnected after ${n} attempts.`, 'success', '✓', 12);
                     updateSocketMonitor();
+                    updateNavStatus();
                 });
 
                 socket.on('pairing-code', function(code) {
@@ -1574,6 +1900,9 @@
                     const display = document.getElementById('currentBotNameDisplay');
                     const panel = document.getElementById('botNamePanel');
 
+                    botConnected = !!data.connected;
+                    if (typeof data.running === 'boolean') botRunning = data.running;
+
                     if (badge) {
                         badge.className = 'status-badge ' + (data.connected ? 'connected' : 'disconnected');
                         badge.innerText = data.connected ? 'CONNECTED' : 'DISCONNECTED';
@@ -1581,9 +1910,11 @@
                     if (botName && data.user) botName.innerText = data.user;
                     if (data.user) {
                         currentBotName = data.user;
-                        if (panel) panel.classList.add('has-bot');
+                        panel?.classList.add('has-bot');
                     }
-                    if (display && data.user) display.innerText = data.user;
+                    if (display && data.user) {
+                        display.innerHTML = `<span style="color:#fff;">${escapeHtml(data.user)}</span>`;
+                    }
 
                     if (data.connected) {
                         document.getElementById('stage1')?.classList.add('hidden');
@@ -1594,12 +1925,14 @@
                     } else {
                         banner?.classList.remove('show');
                     }
+
                     updateSocketMonitor();
+                    updateNavStatus();
+                    updateBotButtons();
                 });
 
                 socket.on('console', (log) => {
                     if (!log || !log.message) return;
-                    // Instant link to terminal
                     termLine(log.message, log.type || 'info', '›');
                     lastHeartbeatTime = Date.now();
                 });
@@ -1615,14 +1948,20 @@
                     updateSocketMonitor();
                 });
 
+                socket.on('session-status', (data) => {
+                    if (data.user && data.user === currentBotName) {
+                        botRunning = !!data.running;
+                        botConnected = !!data.connected;
+                        updateBotButtons();
+                        updateNavStatus();
+                        updateSocketMonitor();
+                    }
+                });
+
                 socket.on('sessions-update', (data) => {
                     if (data && Array.isArray(data.sessions)) {
                         cachedSessions = data.sessions;
                     }
-                });
-
-                socket.on('session-status', (data) => {
-                    termLine(`📡 Session ${data.user || ''} · running=${data.running} · connected=${data.connected}`, 'info', '◇');
                 });
 
             } catch (e) {
@@ -1630,13 +1969,14 @@
             }
 
             // ========================================================
-            // POLL HEALTH — Render anti-sleep ping
+            // POLL HEALTH — API + JSON fallback
             // ========================================================
             async function pollHealth() {
                 try {
                     const res = await fetch('/health', { cache: 'no-store' });
                     if (!res.ok) throw new Error('HTTP ' + res.status);
                     const data = await res.json();
+                    apiOnline = true;
                     lastPollSuccess = Date.now();
                     localTickBase = Number(data.uptime) || 0;
                     lastKnownUptime = localTickBase;
@@ -1655,18 +1995,20 @@
                     updateTerminalStatusBar('uptime', formatDuration(localTickBase));
                     updateStatDots();
                     updateSocketMonitor();
+                    updateNavStatus();
 
-                    if (data.bot) {
+                    if (data.bot && (!currentBotName || currentBotName === '')) {
                         const d = document.getElementById('currentBotNameDisplay');
-                        if (d && d.innerText === 'No Bot Selected') {
-                            d.innerText = data.bot;
-                            currentBotName = data.bot;
-                            document.getElementById('botNamePanel')?.classList.add('has-bot');
-                        }
+                        if (d) d.innerHTML = `<span style="color:#fff;">${escapeHtml(data.bot)}</span>`;
+                        currentBotName = data.bot;
+                        document.getElementById('botNamePanel')?.classList.add('has-bot');
+                        updateBotButtons();
                     }
                 } catch (err) {
+                    apiOnline = false;
                     updateTerminalStatusBar('socket', 'OFFLINE');
                     updateStatDots();
+                    updateNavStatus();
                 }
             }
 
@@ -1684,13 +2026,12 @@
                 }
             }
 
-            // Immediate + periodic
             pollHealth();
             setInterval(pollHealth, 5000);
             pingServer();
             setInterval(pingServer, 8000);
 
-            // 🔥 RENDER ANTI-SLEEP — hit /health from the client too, every 4 min
+            // 🔥 Client anti-sleep ping every 4 min
             setInterval(async () => {
                 try {
                     await fetch('/health?client=' + Date.now(), { cache: 'no-store' });
@@ -1744,15 +2085,13 @@
             }
 
             // ========================================================
-            // ═══ ACTIVE BOT PANEL — CLICK + LONG-PRESS ═══
+            // ACTIVE BOT PANEL — CLICK + LONG-PRESS
             // ========================================================
             function setupBotPanelInteractions() {
                 const panel = document.getElementById('botNamePanel');
                 if (!panel) return;
 
-                // CLICK → open sessions (if bot selected) or scroll to setup
                 panel.addEventListener('click', (e) => {
-                    // Ignore if long-press just fired
                     if (botPanelFired) {
                         botPanelFired = false;
                         return;
@@ -1761,13 +2100,11 @@
                         termLine(`📡 Opening session view for: ${currentBotName}`, 'info', '◇');
                         listSessions();
                     } else {
-                        // No bot yet → scroll to setup
                         document.getElementById('setupSection')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         showToast('Select a bot first', 'info', 2500);
                     }
                 });
 
-                // LONG-PRESS → terminate current session
                 panel.addEventListener('pointerdown', () => {
                     botPanelFired = false;
                     panel.classList.add('pressing');
@@ -1781,9 +2118,8 @@
                             return;
                         }
 
-                        // Open terminate confirm
                         openConfirm({
-                            title: 'TERMINATE CURRENT SESSION',
+                            title: 'TERMINATE SESSION',
                             bodyHtml: `
                                 <p>You are about to terminate the current session:</p>
                                 <div class="session-highlight"><i class="fas fa-robot"></i> ${escapeHtml(currentBotName)}</div>
@@ -1853,13 +2189,13 @@
                     </div>
 
                     <div class="setting-row">
-                        <label>Anti-Delete (recover deleted)
+                        <label>Anti-Delete
                             <span class="toggle-switch ${settings.autoDelete ? 'on' : ''}" data-key="autoDelete"></span>
                         </label>
                     </div>
 
                     <div class="setting-row">
-                        <label>Auto-Status (view & like)
+                        <label>Auto-Status
                             <span class="toggle-switch ${settings.autoStatus ? 'on' : ''}" data-key="autoStatus"></span>
                         </label>
                     </div>
@@ -1895,8 +2231,6 @@
                 saveSettings();
                 closeNexusModal();
                 showToast('Settings saved ✅', 'success', 3000);
-                termLine('Settings updated:', 'info', '⚙️');
-                Object.entries(toggles).forEach(([k, v]) => termLine(`• ${k}: ${v ? 'ON' : 'OFF'}`, 'info', '▸'));
             };
 
             window.resetSettings = function() {
@@ -1905,7 +2239,6 @@
                 saveSettings();
                 openSettings();
                 showToast('Settings reset', 'info', 2000);
-                termLine('Settings reset to defaults.', 'warning', '⚠');
             };
 
             // ========================================================
@@ -1945,8 +2278,8 @@
                     renderSessionsList(cachedSessions, data.total, data.active);
                 } catch (e) {
                     const fallback = [];
-                    if (currentBotName) fallback.push({ userId: currentBotName, connected: activeBotCount > 0 });
-                    if (fallback.length === 0) fallback.push({ userId: 'BL@CKN1TE-NXS', connected: false });
+                    if (currentBotName) fallback.push({ userId: currentBotName, connected: botConnected, running: botRunning });
+                    if (fallback.length === 0) fallback.push({ userId: 'BL@CKN1TE-NXS', connected: false, running: false });
                     renderSessionsList(fallback, fallback.length, fallback.filter(s => s.connected).length);
                 }
             }
@@ -1964,11 +2297,15 @@
                 } else {
                     listHtml = sessions.map((s, idx) => {
                         const online = !!s.connected;
+                        const running = !!s.running;
+                        const statusClass = online ? (running ? 'online' : 'warn') : 'offline';
+                        const statusText = online ? (running ? '● RUNNING' : '● PAUSED') : '● OFFLINE';
                         const safeName = String(s.userId || 'unknown').replace(/"/g, '&quot;');
                         return `
                             <div class="session-card ${online ? '' : 'offline'}"
                                  data-session-name="${safeName}"
                                  data-session-online="${online}"
+                                 data-session-running="${running}"
                                  data-session-idx="${idx}">
                                 <div class="session-card-top">
                                     <div class="session-name">
@@ -1977,12 +2314,12 @@
                                     </div>
                                     <span class="session-status-dot ${online ? 'online' : 'offline'}"></span>
                                 </div>
-                                <div class="session-status-text ${online ? 'online' : 'offline'}">
-                                    ${online ? '● ONLINE' : '● OFFLINE'}
+                                <div class="session-status-text" style="color:${running ? 'var(--primary)' : (online ? 'var(--warning)' : 'var(--danger)')};">
+                                    ${statusText}
                                 </div>
                                 <div class="session-hint">
                                     <i class="fas fa-hand-pointer"></i>
-                                    Long-press to terminate this session
+                                    Long-press to terminate
                                 </div>
                             </div>
                         `;
@@ -2055,7 +2392,7 @@
                         <p>Status: ${statusLabel}</p>
                         <span class="confirm-warn-text">
                             <i class="fas fa-exclamation-circle"></i>
-                            The linked device will be logged out and will need to be re-linked with a new pairing code.
+                            The linked device will be logged out and must be re-linked.
                         </span>
                     `,
                     confirmText: 'TERMINATE',
@@ -2071,7 +2408,7 @@
                         <div class="session-highlight"><i class="fas fa-skull-crossbones"></i> ${cachedSessions.length || 0} SESSION(S)</div>
                         <span class="confirm-warn-text">
                             <i class="fas fa-exclamation-triangle"></i>
-                            Every bot will go offline and each device must be re-linked with a fresh pairing code. This cannot be undone.
+                            Every bot will go offline. Cannot be undone.
                         </span>
                     `,
                     confirmText: 'TERMINATE ALL',
@@ -2084,7 +2421,7 @@
                 openConfirm({
                     title: 'TERMINATE CURRENT SESSION',
                     bodyHtml: `
-                        <p>You are about to terminate the currently active session:</p>
+                        <p>You are about to terminate the current session:</p>
                         <div class="session-highlight"><i class="fas fa-robot"></i> ${escapeHtml(currentBot)}</div>
                         <span class="confirm-warn-text">
                             <i class="fas fa-exclamation-circle"></i>
@@ -2094,13 +2431,6 @@
                     confirmText: 'TERMINATE',
                     onConfirm: () => doTerminateSession(currentBot)
                 });
-            }
-
-            function escapeHtml(str) {
-                return String(str).replace(/[&<>"']/g, s => ({
-                    '&': '&amp;', '<': '&lt;', '>': '&gt;',
-                    '"': '&quot;', "'": '&#39;'
-                })[s]);
             }
 
             function doTerminateSession(name) {
@@ -2120,6 +2450,11 @@
                     termLine(`🚨 Session terminated: ${name}`, 'warning', '⚠️');
                     cachedSessions = cachedSessions.filter(s => s.userId !== name);
                     renderSessionsList(cachedSessions);
+                    botRunning = false;
+                    botConnected = false;
+                    updateBotButtons();
+                    updateNavStatus();
+                    updateSocketMonitor();
                 }, 5200);
             }
 
@@ -2141,6 +2476,12 @@
                     termLine('🚨 ALL SESSIONS TERMINATED by admin.', 'warning', '⚠️');
                     cachedSessions = [];
                     renderSessionsList(cachedSessions);
+                    botRunning = false;
+                    botConnected = false;
+                    currentBotName = '';
+                    updateBotButtons();
+                    updateNavStatus();
+                    updateSocketMonitor();
                 }, 5200);
             }
 
@@ -2247,7 +2588,7 @@
             };
 
             // ========================================================
-            // LOGOUT BUTTON → settings
+            // INIT
             // ========================================================
             document.addEventListener('DOMContentLoaded', () => {
                 document.body.addEventListener('click', handleDrawerClick, true);
@@ -2257,6 +2598,9 @@
                     openSettings();
                     termLine('Logout button → opened Settings panel', 'info', '⚙️');
                 });
+
+                updateBotButtons();
+                updateNavStatus();
             });
 
             setTimeout(() => {
@@ -2299,11 +2643,8 @@
                 const onOK = () => {
                     if (btn) {
                         const o = btn.innerHTML;
-                        btn.classList.add('copied');
                         btn.innerHTML = '<i class="fas fa-check"></i> COPIED';
-                        btn.style.background = 'rgba(0, 255, 157, 0.35)';
-                        btn.style.color = '#05070d';
-                        setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = o; btn.style.background = ''; btn.style.color = ''; }, 2000);
+                        setTimeout(() => { btn.innerHTML = o; }, 2000);
                     }
                     showToast('Copied: ' + name, 'success', 2000);
                 };
@@ -2331,7 +2672,7 @@
                 if (!name) { showToast('Enter a bot name first.', 'error'); return; }
                 localStorage.setItem('botName', name);
                 currentBotName = name;
-                document.getElementById('currentBotNameDisplay').innerText = name;
+                document.getElementById('currentBotNameDisplay').innerHTML = `<span style="color:#fff;">${escapeHtml(name)}</span>`;
                 document.getElementById('botNamePanel')?.classList.add('has-bot');
                 document.getElementById('setupSection').style.display = 'none';
                 document.getElementById('userDashboard').classList.remove('hidden');
@@ -2340,6 +2681,7 @@
                 if (socket && socket.emit) socket.emit('set-user', name);
                 termTyping(`Bot "${name}" selected`, 'success', '✓', 12);
                 showToast(`Bot "${name}" selected`, 'success');
+                updateBotButtons();
             };
 
             document.addEventListener('DOMContentLoaded', () => {
@@ -2445,9 +2787,8 @@
                     const btn = document.getElementById('pairingCopyBtn');
                     if (btn) {
                         const o = btn.innerHTML;
-                        btn.classList.add('copied');
                         btn.innerHTML = '<i class="fas fa-check"></i> COPIED!';
-                        setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = o; }, 2000);
+                        setTimeout(() => { btn.innerHTML = o; }, 2000);
                     }
                     showToast('Pairing code copied ✅', 'success', 2000);
                 };
@@ -2474,4 +2815,4 @@
         })();
     </script>
 </body>
-</html>
+    </html>
