@@ -37,7 +37,7 @@
 
 <!-- ============ LIVE STATUS BADGES ============ -->
 
-<a href="https://blackn1te-nxs-v16.onrender.com">
+<a href="https://blackn1te-nxs.onrender.com">
   <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fblackn1te-nxs-v16.onrender.com%2Fapi%2Fbadge&style=for-the-badge&labelColor=05070d" alt="Live Status" />
 </a>
 
