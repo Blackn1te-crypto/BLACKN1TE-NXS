@@ -1,11 +1,11 @@
 <!-- ============================================================ -->
 <!--                 𝗕𝗟@𝗖𝗞𝗡𝟭𝗧𝗘-𝗡𝗫𝗦 — README                      -->
-<!--    All badges pull LIVE data from blackn1te-nxs-v16.onrender  -->
+<!--    All badges pull LIVE data from blackn1te-nxs.onrender  -->
 <!-- ============================================================ -->
 
 <div align="center">
 
-<a href="https://blackn1te-nxs-v16.onrender.com">
+<a href="https://blackn1te-nxs.onrender.com">
   <img src="https://raw.githubusercontent.com/Blackn1te-crypto/BLACKN1TE-NXS/main/logo.png"
        alt="BL@CKN1TE-NXS"
        width="200"
@@ -31,7 +31,7 @@
 
 <br />
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=15&duration=3000&pause=1000&color=06B6D4&center=true&vCenter=true&width=600&height=40&lines=%3E+Initializing+Nexus+core...;%3E+Connecting+to+WhatsApp+servers...;%3E+Loading+command+registry...;%3E+System+online.+Ready+to+deploy.;%3E+Welcome+to+BL%40CKN1TE-NXS+V16." alt="Terminal Typing" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=15&duration=3000&pause=1000&color=06B6D4&center=true&vCenter=true&width=600&height=40&lines=%3E+Initializing+Nexus+core...;%3E+Connecting+to+WhatsApp+servers...;%3E+Loading+command+registry...;%3E+System+online.+Ready+to+deploy.;%3E+Welcome+to+BL%40CKN1TE-NXS." alt="Terminal Typing" />
 
 <br />
 
@@ -49,7 +49,7 @@
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fblackn1te-nxs-v16.onrender.com%2Fapi%2Fbadge&query=%24.sessions&label=SESSIONS&color=06b6d4&style=for-the-badge&labelColor=05070d&logo=whatsapp&logoColor=06b6d4" alt="Sessions" />
 </a>
 
-<a href="https://blackn1te-nxs-v16.onrender.com/health">
+<a href="https://blackn1te-nxs.onrender.com/health">
   <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fblackn1te-nxs-v16.onrender.com%2Fapi%2Fbadge&query=%24.uptimeHuman&label=UPTIME&color=7c3aed&style=for-the-badge&labelColor=05070d&logo=clockify&logoColor=7c3aed" alt="Uptime" />
 </a>
 
@@ -73,7 +73,7 @@
 <a href="https://blackn1te-nxs-v16.onrender.com">
   <img src="https://img.shields.io/badge/🌐_LIVE_DASHBOARD-OPEN-00ff80?style=for-the-badge&labelColor=05070d" alt="Dashboard" />
 </a>
-<a href="https://blackn1te-nxs-v16.onrender.com/health">
+<a href="https://blackn1te-nxs.onrender.com/health">
   <img src="https://img.shields.io/badge/📊_HEALTH_ENDPOINT-CHECK-06b6d4?style=for-the-badge&labelColor=05070d" alt="Health" />
 </a>
 <a href="https://wa.me/263780540231">
