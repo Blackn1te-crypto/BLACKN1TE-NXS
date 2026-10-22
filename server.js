@@ -5,6 +5,17 @@ const socketIo = require('socket.io');
 const fs = require('fs-extra');
 const path = require('path');
 const axios = require('axios');
+
+// ============================================================
+// NODE ENGINE CHECK (Prevents Node 24 crashes)
+// ============================================================
+const nodeVersion = process.version;
+const majorVersion = parseInt(nodeVersion.replace('v', '').split('.')[0]);
+if (majorVersion > 20) {
+    console.warn(`⚠️ WARNING: You are running Node.js ${nodeVersion}. This bot is designed for Node 20.x or below.`);
+    console.warn(`⚠️ Please set your Render environment to use Node 20 in package.json.`);
+}
+
 const {
     default: makeWASocket,
     useMultiFileAuthState,
@@ -275,9 +286,6 @@ function buildBeautifulMenu(session, botData, customName) {
     const modeIcon = session.isPublic ? '🌍' : '🔐';
     const modeText = session.isPublic ? toBold('PUBLIC') : toBold('PRIVATE');
 
-    // ═══════════════════════════════════════════════
-    // ✦ SECTION 01 — ANIMATED HEADER BANNER
-    // ═══════════════════════════════════════════════
     const header =
 `╔═══════════════════════════════════════╗
 ║  ░▒▓█ ${toBold('BL@CKN1TE-NXS')} █▓▒░
@@ -288,9 +296,6 @@ function buildBeautifulMenu(session, botData, customName) {
 ║  ⚡ ${toBold('ENGINE')} : Baileys • Node.js
 ╚═══════════════════════════════════════╝`;
 
-    // ═══════════════════════════════════════════════
-    // ✦ SECTION 02 — OPERATOR IDENTITY CARD
-    // ═══════════════════════════════════════════════
     const operator =
 `\n┏━〔 ${toBold('👤 OPERATOR IDENTITY')} 〕━━━━━━━━━
 ┃  ├ ${toBold('Codename')}  : ${customName}
@@ -299,9 +304,6 @@ function buildBeautifulMenu(session, botData, customName) {
 ┃  └ ${toBold('Access')}    : ${modeIcon} ${modeText}
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
-    // ═══════════════════════════════════════════════
-    // ✦ SECTION 03 — CORE SYSTEMS STATUS
-    // ═══════════════════════════════════════════════
     const coreSystems =
 `\n┏━〔 ${toBold('⚙️ CORE SYSTEMS')} 〕━━━━━━━━━━━━━
 ┃  ${aiStatus} ${toBold('AI Engine')}       ${session.aiEnabled ? 'ACTIVE' : 'IDLE'}
@@ -314,21 +316,14 @@ function buildBeautifulMenu(session, botData, customName) {
 ┃  ${antiCallStatus} ${toBold('Anti-Call')}       ${botData.antiCall?.[session.userId] ? 'ACTIVE' : 'IDLE'}
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
-    // ═══════════════════════════════════════════════
-    // ✦ SECTION 04 — COMMAND MATRIX BANNER
-    // ═══════════════════════════════════════════════
     const matrixBanner =
 `\n╔═══════════════════════════════════════╗
 ║  ░▒▓ ${toBold('COMMAND MATRIX')} ▓▒░
 ║  ${toBold('8 Sectors')} • ${toBold('70+ Commands')}
 ╚═══════════════════════════════════════╝`;
 
-    // ═══════════════════════════════════════════════
-    // ✦ COMMAND SECTIONS
-    // ═══════════════════════════════════════════════
     const sections = [];
 
-    // ─── 01 · USER CORE ───
     sections.push(
 `\n┏━〔 ${toBold('⚙️ 01 · USER CORE')} 〕━━━━━━━━━━
 ┃  ▸ ${toBold('.read')} <on|off|default>
@@ -344,7 +339,6 @@ function buildBeautifulMenu(session, botData, customName) {
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
     );
 
-    // ─── 02 · MEDIA VAULT ───
     sections.push(
 `\n┏━〔 ${toBold('🎬 02 · MEDIA VAULT')} 〕━━━━━━━━
 ┃  ▸ ${toBold('.song')} <name|url>
@@ -358,7 +352,6 @@ function buildBeautifulMenu(session, botData, customName) {
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
     );
 
-    // ─── 03 · AI & SYNTHESIS ───
     sections.push(
 `\n┏━〔 ${toBold('🧠 03 · AI & SYNTHESIS')} 〕━━━━━
 ┃  ▸ ${toBold('.image')} <prompt>
@@ -368,7 +361,6 @@ function buildBeautifulMenu(session, botData, customName) {
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
     );
 
-    // ─── 04 · UTILITIES ───
     sections.push(
 `\n┏━〔 ${toBold('🛠️ 04 · UTILITIES')} 〕━━━━━━━━━
 ┃  ▸ ${toBold('.weather')} <city>
@@ -381,7 +373,6 @@ function buildBeautifulMenu(session, botData, customName) {
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
     );
 
-    // ─── 05 · ADMIN PROTOCOLS ───
     sections.push(
 `\n┏━〔 ${toBold('🛡️ 05 · ADMIN PROTOCOLS')} 〕━━━
 ┃  ▸ ${toBold('.private')} / ${toBold('.public')}
@@ -395,7 +386,6 @@ function buildBeautifulMenu(session, botData, customName) {
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
     );
 
-    // ─── 06 · GROUP WARFARE ───
     sections.push(
 `\n┏━〔 ${toBold('⚔️ 06 · GROUP WARFARE')} 〕━━━━
 ┃  ▸ ${toBold('.hidetag')} <message>
@@ -408,7 +398,6 @@ function buildBeautifulMenu(session, botData, customName) {
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
     );
 
-    // ─── 07 · BL@CKN1TE HUB ───
     sections.push(
 `\n┏━〔 ${toBold('🌐 07 · BL@CKN1TE HUB')} 〕━━━━━
 ┃  ▸ ${toBold('.websites')}
@@ -416,16 +405,12 @@ function buildBeautifulMenu(session, botData, customName) {
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
     );
 
-    // ─── 08 · OWNER ZONE ───
     sections.push(
 `\n┏━〔 ${toBold('👑 08 · OWNER ZONE')} 〕━━━━━━━
 ┃  ▸ ${toBold('.settings')}
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`
     );
 
-    // ═══════════════════════════════════════════════
-    // ✦ SECTION 09 — QUICK START GUIDE
-    // ═══════════════════════════════════════════════
     const quickStart =
 `\n┏━〔 ${toBold('🚀 QUICK START')} 〕━━━━━━━━━━━
 ┃  ${toBold('Prefixes')}  : . / >
@@ -434,9 +419,6 @@ function buildBeautifulMenu(session, botData, customName) {
 ┃  ${toBold('Owner')}     : .owner
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 
-    // ═══════════════════════════════════════════════
-    // ✦ FOOTER — CYBERPUNK SIGNATURE
-    // ═══════════════════════════════════════════════
     const footer =
 `\n╔═══════════════════════════════════════╗
 ║  🔗 ${toBold('JOIN CHANNEL')}
@@ -450,13 +432,8 @@ function buildBeautifulMenu(session, botData, customName) {
   ░▒▓█ ${toBold('END OF TRANSMISSION')} █▓▒░`;
 
     return (
-        header +
-        operator +
-        coreSystems +
-        matrixBanner +
-        sections.join('') +
-        quickStart +
-        footer
+        header + operator + coreSystems + matrixBanner +
+        sections.join('') + quickStart + footer
     );
 }
 
@@ -1220,19 +1197,31 @@ server.listen(PORT, () => {
     loadExistingSessions();
     startInfiniteSupervisor();
 
-    const APP_URL = process.env.APP_URL || `http://localhost:${PORT}`;
+    // Render anti-sleep ping
+    const APP_URL = process.env.RENDER_EXTERNAL_URL || process.env.APP_URL || `http://localhost:${PORT}`;
     setInterval(async () => {
         try { await axios.get(APP_URL + '/health', { timeout: 5000 }); console.log("♾️ Anti-Sleep ping ✅"); } catch (e) {}
-    }, 4 * 60 * 1000);
-
-    setInterval(async () => {
-        try { await axios.get(APP_URL + '/api/badge', { timeout: 4000 }); } catch (e) {}
-    }, 90 * 1000);
+    }, 2 * 60 * 1000); // Ping every 2 minutes to prevent Render sleep
 });
 
 // ============================================================
-// ♾️ GLOBAL ERROR HANDLERS
+// ♾️ GLOBAL ERROR HANDLERS & KEEP ALIVE
 // ============================================================
-process.on('uncaughtException', (err) => { console.error('♾️ [Uncaught]', err.message); });
-process.on('unhandledRejection', (err) => { console.error('♾️ [Unhandled]', err?.message || err); });
-process.on('SIGTERM', () => { console.log('♾️ [SIGTERM] Ignored — staying 
+process.on('uncaughtException', (err) => { 
+    console.error('♾️ [Uncaught Exception]', err.message); 
+    // Do not exit, keep the process alive
+});
+
+process.on('unhandledRejection', (err) => { 
+    console.error('♾️ [Unhandled Rejection]', err?.message || err); 
+    // Do not exit, keep the process alive
+});
+
+process.on('SIGTERM', () => { 
+    console.log('♾️ [SIGTERM] Ignored — staying alive'); 
+    // Render sends SIGTERM when sleeping, this prevents graceful shutdown if possible
+});
+
+process.on('SIGINT', () => {
+    console.log('♾️ [SIGINT] Ignored — staying alive');
+});
